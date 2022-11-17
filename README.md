@@ -17,7 +17,7 @@ RPI's motto used to be "Knowledge and Thoroughness", an ideal which still sets R
 technologists and programmers alike.  In our specialties, we are often self-taught; most times,
 our knowledge and / or applicative need expands farther than a class can take us, so we must learn on our own.
 Principles of Software is a deeply important class to budding programmers, and the author believes these concepts
-must be more readily available and digestible than they currently are.  
+must be more readily available and digestible than they currently are as of this writing.  
 
 # Acknowledgements
 
