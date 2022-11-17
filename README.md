@@ -1,17 +1,38 @@
-# RCOS Handbook
+# Principles of Software Textbook
 
-Organization documentation for RCOS leadership, members, and external users.
+This is a living textbook meant to supplement and improve upon RPI's CSCI 2600, 
 
-This is intended to be a thorough, living document detailing the organizational practices of RCOS at every level. If you find a problem or something that you'd like to dispute, please [open an issue](https://github.com/rcos/handbook/issues/new).
+otherwise known as Principles of Software.
 
-Built with [Docsify](https://docsify.js.org)
+The class is a study of important concepts in software design, implementation, and testing. 
+Topics include specification, abstraction, design principles and patterns, testing, refactoring, software 
+development processes, and GUI and event-driven programming. The course also introduces implementation and 
+testing tools, including IDEs, version control systems, and other frameworks. **The overarching goal of the course 
+is for students to learn how to write correct and maintainable software.**
 
-Remember to modify the [sidebar](https://github.com/rcos/rcos-handbook/blob/master/docs/_sidebar.md) whenever you add or remove a page from the handbook!
+Ideally, this book will also include a chapter on ethics in computing, more in-depth examples of Dafny, design pattern
+usage, and real world applications.  The motivation for this material comes from its necessity -
 
-## Developing
+RPI's motto used to be "Knowledge and Thoroughness", an ideal which still sets RPI engineers apart from other
+technologists and programmers alike.  In our specialties, we are often self-taught; most times,
+our knowledge and / or applicative need expands farther than a class can take us, so we must learn on our own.
+Principles of Software is a deeply important class to budding programmers, and the author believes these concepts
+must be more readily available and digestible than they currently are.  
 
-Check out [CONTRIBUTING.md](./CONTRIBUTING.md) for the suggested ways to preview your changes locally. You can also directly make edits through GitHub but it is strongly recommended you do them and view them locally instead.
+# Acknowledgements
 
-## Deploying
+This repository is built atop the [RCOS Handbook]{https://handbook.rcos.io/#/}, the document for which another RPI class, Rensselaer Center for Open Source (RCOS), is based off of.  That document is maintained and updated by Faculty and the student coordinators who make it all happen.
 
-The Handbook is automatically deployed using GitHub pages, and has `handbook.rcos.io` set as the custom domain in the repostiory settings. This means that the Handbook is automatically updated when the master branch is updated and can be located at <https://handbook.rcos.io>!
+This textbook would also not be possible without:
+
+Dr. Ana Milanova,
+Dr. David Goldschmidt,
+Dr. Carlos Varela,
+Dr. Michael Ernst of University of Washington,
+Professor Thompson,
+
+All of Principles of Software's TAs and mentors for their contributions of student grading and course advice,
+
+Dr. Barb Cutler and the Submitty team for making the grading of our projects possible,
+
+and Dr. Konstantin Kuzmin, who oversaw, edited, and guided the authors in the creation of this publication.
