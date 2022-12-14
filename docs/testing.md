@@ -2,22 +2,22 @@
 Testing is exactly what it sounds like - executing software to find bugs.  Good testing creates a high probability of finding undiscovered bugs; successful testing discovers those bugs.
 
     Program testing can be used to show the presence of bugs, but never to show their absence.
-    Edsger Dijkstra 1970
+    - Edsger Dijkstra 1970
 
 We have seven rules for testing:
 
-1. Exhaustive testing is usually not possible
-2. A small number of modules usually contain most of the defects (aka defect clustering)
-3. The Pesticide Paradox: repetitive use of the same pesticide builds stronger bugs.  Old tests will not find new bugs.
-4. Testing shows the presence of defects, not the absence
-5. The absence of Error fallacy: absence of evidence is not evidence of absence of bugs!
-6. Test early and often
-7. Testing is context dependent; different data will reveal different bugs
+1.  Exhaustive testing is usually not possible
+2.  A small number of modules usually contain most of the defects (aka defect clustering)
+3.  The Pesticide Paradox: repetitive use of the same pesticide builds stronger bugs.  Old tests will not find new bugs.
+4.  Testing shows the presence of defects, not the absence
+5.  The absence of Error fallacy: absence of evidence is not evidence of absence of bugs!
+6.  Test early and often
+7.  Testing is context-dependent; different data will reveal different bugs
 
-Testing is complicated because rule number 1 is true.  Exhaustive testing is costly.  The key problem is choosing a set of inputs for the test suite, so it finishes quickly, but is large enough to validate the program.
+Testing is complicated because rule number one is true; exhaustive testing is prohibitively costly.  The key problem is choosing a set of inputs for the test suite, so it finishes quickly, but is large enough to validate the program.
 
 ## Quality Assurance (QA)
-We test for quality assurance, so we know our code is good.  We can also use the following:
+Testing for **Quality Assurance** is self-explanatory: <span style="color:blue;">we test our code, so we know it is up to spec</span>.  We can also use the following testing methods:
 
 - static analysis (finding bugs without executing code (by reading the code))
 - proofs of correctness (theorems)
@@ -27,66 +27,70 @@ We test for quality assurance, so we know our code is good.  We can also use the
 Nothing can guarantee software quality, which is why we have so many checks.  
 
 ## Scope (Phases) of Testing
-There are a few different kinds of testing: unit testing checks that each module does what it should.  Integration testing verifies that all parts work together as expected.  System testing checks whether the program satisfies functional requirements and works within a large software project.
+There are a few different testing scopes: **Unit Testing** <span style="color:blue;">checks that each module does what it should</span>.  In OOP, unit testing means class testing, since classes are the easiest to break into distinct modules.  **Integration Testing** <span style="color:blue;">verifies that all parts work together as expected</span>.  Finally, **System Testing** <span style="color:blue;">checks whether the program satisfies functional requirements and works within a large software project</span>.
 
 ## Testing Strategies
-Unit Testing Tests a single unit in isolation from all others.  In OOP, unit testing means class testing.
+In addition to different scopes, there are also a few different testing strategies, or points of view, we can employ to cover our bases.
 
-Black Box Testing: We ignore the program's code and look at its specification.  Given some input, was the produced output correct according to the spec?  Black Box Tests are specification tests.
+**Black Box Testing**: <span style="color:blue;">Ignore the program's code and test according to its specification</span>.  Given some input, is the produced output correct according to the spec?  Black Box Tests are, in their soul, specification tests.
 
-Black Box Testing is advantageous because it is robust concerning changes in implementation.  Black box testing is independent of implementation, and the test data does not need to be changed when the code is changed.  It also allows for independent testing, where folks unfamiliar with the code base can contribute.  Most importantly, black box tests can be written before their corresponding code! 
+Black Box Testing is advantageous because it is robust concerning changes in implementation; it is independent of implementation, so test data does not need to be changed when code is changed.  Black Box Testing also allows for independent testing, where developers unfamiliar with the code base can contribute.  Most importantly, black box tests can be written before their corresponding code!  It is good practice to do so.
 
-White Box Testing: We use knowledge of the code of the program for white box testing.  We write tests to cover internal paths.  We choose paths with knowledge of the implementation to cover as much ground as possible.
+**NOTE: EXAMPLE OF BLACK BOX TESTING**
 
-White Box Testing is advantageous because we can ensure that the test suite covers all of the program.  Thus, successful tests with high coverage imply few errors in the program.  The focus is not on features described in the program, but on control-flow details, performance optimizations, and alternate algorithms for different cases.
+**White Box Testing**: <span style="color:blue;">Use the program's code to cover all possible internal logical paths</span>.  We choose paths with knowledge of the implementation to cover as many use cases (or input conditions) as possible.
 
-The bottom line for testing is to test early and often.  Write tests before code!  Catch bugs early, before they propagate through the system.  Automate the process.  Regression testing saves time in the long run!  Be systematic about testing, too; writing tests is an excellent way to understand the spec.  Specs can also be buggy!  When finding bugs, write tests that verify their absence before eradicating them.
+White Box Testing is advantageous because the test suite can cover the entire program.  Thus, successful tests with high coverage imply few errors in the program.  The focus is not on features described in the program, but on control-flow details, performance optimizations, and alternate algorithms for different cases.
+
+**NOTE: EXAMPLE OF WHITE BOX TESTING**
+
+The bottom line for testing is to test early and often.  Write tests before code to catch bugs early, before they propagate through the system.  Automate the process.  Thorough testing saves time in the long run!  Be systematic about it, too; writing tests is an excellent way to understand the spec and, by extension, the code.  Specifications can also be buggy -- when finding bugs, write tests that verify their absence before eradicating them.
 
 ## Equivalence Partitioning
-Equivalence partitioning divides input and output domains into
-equivalence classes.  Equivalence classes are partitions of comparable data from which test cases can be derived.  They usually apply to input data, and it is best to test each partition once.
+**Equivalence Partitioning** <span style="color:blue;">divides input and output domains into equivalence classes</span>.  **Equivalence Classes** <span style="color:blue;">are partitions of comparable data from which test cases can be derived</span>.  They usually apply to input data, and it is best to test each partition once.
 
-Intuitively, values from different equivalence classes will drive the program through different paths.  We do not formally define equivalence classes, though we know:
+Intuitively, values from different equivalence classes will drive the program through different logical paths.  We do not formally define equivalence classes, though we know:
 
 - input values have valid and invalid ranges
-- we want to choose tests from the valid and invalid regions and values near or at the boundaries of regions to cover our edge cases
+- we want to choose tests from the valid and invalid regions, and values near or at the boundaries of regions to cover edge cases
 
 Note that we can only run tests on invalid arguments if the spec tells us what will happen for invalid data.
 
-When partitioning values, carve them into sets of valid data.  Suppose our specification says that valid input is an array of 4 to 24 numbers, and each number is a 3-digit positive integer.  One equivalence class could be the size of an array:
+When partitioning values, carve them into sets of valid data.  For example, suppose our specification says that valid input is an array of 4 to 24 numbers, and each number is a 3-digit positive integer.  One equivalence class could be the size of an array:
 
-- Classes are $n<4$, $4 \leq n \leq 24$, $n > 24$ 
-- Chosen values: $3,4,5, 14, 23,24,25$
+- Classes are `n < 4`, `4 <= n <= 24`, `n > 24`
+- Chosen values: `3,4,5, 14, 23,24,25`
 
 Another equivalence class could be integer values:
 
-- Classes are $x<100$, $100 \leq x \leq 999$, $x > 999$
-- Chosen values: $99,100,101, 500, 998,999,1000$
+- Classes are `x < 100`, `100 <= x <= 999`, `x > 999`
+- Chosen values: `99,100,101, 500, 998,999,1000`
 
-Because these dimensions of data are unrelated to one another (orthogonal), we need to test a range of array sizes and values in the array.  We want to get arithmetic boundaries - either the smallest, most significant, or zero values.  Objects should be null, circular, and the same object passed to multiple arguments (aliasing).
-\includegraphics[width=\textwidth]{eqpartition.png}
+Because these dimensions of data are unrelated, we need to test a range of array sizes and values within the array.  We want to get arithmetic boundaries: the smallest, most significant, or zero values.
+
+![](images/eqpartition.png)
 
 ## Control-Flow-Based-Testing
-Control Flow Based White Box Testing requires developers to extract a control flow graph (CFG) from the code.  The test suite must cover certain elements of this control-flow graph.  The idea is to define a coverage target and ensure the test suite covers the target.  The coverage target approximates the whole program.
+**Control Flow Based White Box Testing** <span style="color:blue;">requires developers to extract a control flow graph (CFG) from the code; the test suite must cover essential elements of this control-flow graph</span>.  The idea is to define a coverage target and ensure the test suite covers the target.  The coverage target approximates the whole program.
 
 In a CFG, each node represents a block of code.  In that, there is an entry block and an exit block.  Directed edges within the graph represent the control flow.
 
-\includegraphics[width=\textwidth]{if.png}
+![](images/if.png)
 
-\includegraphics[width=\textwidth]{else.png}
+![](images/else.png)
 
 ## Coverage
-A traditional coverage target is statement coverage, which covers all statements (nodes) in the CFG.  This way, we can see that code that might never get executed will be tested.
+A traditional coverage target is **Statement Coverage**, which c<span style="color:blue;">overs all statements (nodes) in the CFG</span>.  This way, we can ensure that even code that never gets executed will be tested.
 
-Branch coverage tests all the edges in a CFG, where true/false statements and if/else blocks create branches.  The two branch edges correspond to conditions of the loop.  In modern languages, branch coverage implies statement coverage.
+**Branch Coverage** <span style="color:blue;">tests all the edges in a CFG, where true/false statements and if/else blocks create branches</span>.  In a loop, two branch edges correspond to its boolean conditions.  In modern languages, branch coverage implies statement coverage.
 
-The motivation for branch coverage is to test decision-making in the code.  However, statement coverage does not imply branch coverage because it is possible to hit all nodes without getting full edge-covering.
+The motivation for branch coverage is to test decision-making in the code.  However, statement coverage does not imply branch coverage because it can hit all nodes without a full edge covering.
 
 ## Definition-Use (DU) Pairs
-A def-use pair consists of a definition and a variable, where at least one path exists from the definition to the use.  For example, $x = 1$ could be a definition, and $y = x + 3$ could be the use.  A DU Path could be from the definition of a variable to the use of the same variable with no other definition of the variable on the path.  Loops can create infinite DU paths.
+A **Def-Use Pair** <span style="color:blue;">consists of a definition and a variable where at least one path exists from the definition to the use</span>.  For example, `x = 1` could be a definition, and `y = x + 3` could be the use.  A DU Path could be from the definition of a variable to the use of the same variable, with no other definition of the variable on the path.  Loops can create infinite DU paths.
 
-\includegraphics[width=\textwidth]{du.png}
+![](images/du.png)
 
-We want to test all DU pairs, all DU paths, and all definitions.  Sometimes, we do not have possible DU paths, so we make up for the gaps in representation.  Detecting infeasibility can be difficult; in practice, the goal is to get reasonable testing coverage.  Aliasing, infeasible paths, and worst cases can hinder testing, but pragmatism is imperative here.
+We want to test all DU pairs, all DU paths, and all definitions.  Sometimes, there are impossible DU paths, so developers make up for the gaps in representation.  Detecting infeasibility can be difficult; in practice, the goal is to get reasonable testing coverage.  Aliasing, infeasible paths, and worst cases can hinder testing, but pragmatism is imperative here.
 
-\includegraphics[width=\textwidth]{infeasible.png}
+![](images/infeasible.png)
