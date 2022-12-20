@@ -25,7 +25,13 @@ Programmers achieve correctness through <span style="color:blue;">principled des
 
 We care about correctness because caring, paired with adequate designing and testing, stops catastrophic failures from occurring often and ultimately saves money and lives.  Programming errors cost the U.S. economy \$60 billion annually in lost efficiency and real harm.  Here are a few examples of such failures:
 
-**NOTE: MUST ADD EXAMPLES**
+- **The Mariner 1 Spacecraft, 1962**: before NASA sent a person to space, they sent an unmanned space ship to fly past Venus.  An omitted hyphen caused the craft to veer off course and, fearing a devastating crash-landing moments after launch, the ship self-destructed.  <span style="color:blue;">Total present-day cost of failure: \$169 million</span>.
+- **The Morris Worm, 1988**: Then-graduate student Robert Tappan Morris is credited with creating the first software virus, which he sent through an early version of the internet.  Dr. Tappan is now a professor at MIT, and is known for exposing an early digital vulnerability through helpful, chaotic mischief.  <span style="color:blue;">Total present-day cost of failure: \$25 million</span>.
+- **Bitcoin Hack, Mt. Gox, 2011**: Mt. Gox was the biggest bitcoin exchange in the world in the 2010's, until they were hit by a software error that ultimately proved fatal.  The glitch led to the exchange creating transactions that could never be fully redeemed, costing up to <span style="color:blue;">Total present-day cost of failure : \$2 million</span>.
+- **NASA’s Mars Climate Orbiter, 1998**: The Mars Climate Orbiter burned up after getting too close to the surface of Mars because there was a software error in converting imperial units to metric.  <span style="color:blue;">Total present-day cost of failure: \$580 million</span>.
+- **Y2K, 2000**: At the turn of the twenty-first century, software users were concerned that computer systems around the world would not be able to cope with dates after December 31, 1999, because most computers and operating systems only used two digits to represent the year.  Software systems handled the situation well, though governments and citizens alike around the world spent a lot of money preparing for the inevitable collapse.  <span style="color:blue;">Total present-day cost of distrust in the technology: \$172 billion</span>.
+
+The list goes on and on, but hopefully this is enough to convince even the most wary computing students that paying attention to what your software does in the world is very, very important.
 
 ## Maintainability
 
