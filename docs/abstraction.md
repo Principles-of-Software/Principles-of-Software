@@ -19,7 +19,8 @@ ADTs can be immutable or mutable.  **Immutable Objects** <span style="color:blue
 
 ## ADT Java Language Features
 In Java, ADT operations are usually **public**, or <span style="color:blue;">accessible to users</span>, and other operations are **private**, or <span style="color:blue;">inaccessible to users</span>.  We will talk more about this in the context of access control modifiers in the Java section of this text.  Clients can only access ADT operations.  Because ADTs rarely have producers and are most often immutable, new ADTs must be created to change older ones.  An ADT is a specification, or a set of operations.
-\includegraphics[width=\textwidth]{jadt.png}
+
+![](images/jadt.png)
 
 ## Domain
 The mathematical concepts of domain and range also apply to ADTs.  In a data type, the **Domain** <span style="color:blue;">consists of all implementations that satisfy the representation invariant</span>.  The representation invariant simplifies the abstract function by restricting its domain.  The **range** of an ADT is <span style="color:blue;">the restriction of its possible stored values</span>.  The range can be tough to denote relative to the domain; it is easy for mathematical concepts like sets, but hard to define for real-world ADTs.  For instance, in a set, the range might be restricted to the type of value it can contain.  In other data types, the same range could be applied, but may also contain artifacts from the specifications of the ADT, such as a value range or a maximum length to a list.
@@ -34,12 +35,12 @@ Representation Invariants also describe whether or not ADTs are well formed.  Th
 ## Reasoning About ADTs
 The best way to start coding is to design and plan carefully by writing specifications, representation invariants, and abstraction functions.  However, more is needed.  After designing and implementing according to spec, the code must be verified using reasoning.  Verification aims to prove that its implementation satisfies the specifications.  Verification can be difficult, depending on the program.  Luckily, it is also possible to use proofs to verify that the representation invariant holds.
 
-In Java, we can add a **`checkRep()`** method that <span style="color:blue;">checks implementation by verifying the representation invariant after each method</span>.  Of course, if the ADT is immutable, the representation invariant does not require checking beforehand, but it is always good practice to make sure.  Unfortunately, exhaustively testing for representation exposures is often impossible, so we have to choose well what goes into the `checkRep()` method.
+In Java, we can add a **`checkRep()` method** that <span style="color:blue;">checks implementation by verifying the representation invariant after each method</span>.  Of course, if the ADT is immutable, the representation invariant does not require checking beforehand, but it is always good practice to make sure.  Unfortunately, exhaustively testing for representation exposures is often impossible, so we have to choose well what goes into the `checkRep()` method.
 
 Through reasoning, we can prove that all objects satisfy the representation invariant.  Know how to use reasoning appropriately; thorough testing can be easier than representation invariants to implement.  When it is not, we can prove that all objects satisfy the representation invariant through induction and considering all ways to make a new object with creators and producers.
 
 ## Induction
-Reasoning about ADT's uses induction.  When reasoning about representation invariants, the inductive step must consider all possible changes to the representation, including representation exposure.  If the proof does not account for representation exposure, this is invalid.
+Reasoning about ADTs uses induction.  When reasoning about representation invariants, the inductive step must consider all possible changes to the representation, including representation exposure.  If the proof does not account for representation exposure, this is invalid.
 
 The steps to successful induction are as follows:
 
