@@ -1,7 +1,7 @@
 # Loops
 Computing the weakest possible precondition for loops is a complex problem to solve.  However, a tool is available to developers for such a task: the loop invariant.  We can find loop invariants using computational induction, a systematic formula for proving that recursive functions behave as expected.
 
-## Induction
+## Computational Induction
 Computational induction is a recursive algorithm for proving loop functionality.  To illustrate this concept, see the below example:
 
     int x = 10;
@@ -25,3 +25,5 @@ A \textbf{loop invariant} is a logical assertion representing a loop's abstract 
 We must prove two things to determine if the loop behaves as expected.  The first is \textbf{Partial Correctness}: define a decrementing function D that incorporates the necessary variables of the loop and the decrementing variable, and try to prove that D holds after every loop iteration by induction.  Partial correctness establishes and proves the loop invariant using computational induction.  Like regular induction, this takes a little while to learn, though the next step in our proof will make this process more intuitive.
 
 The second step to proving loop behavior is \textbf{Loop Termination}, where the minimum value of D implies the loop's exit condition.  The loop invariant and exit condition must imply the postcondition - "If the loop terminates, then the postcondition holds."  \bftext{Total Correctness} is the successful combination of partial correctness and loop termination and adequately proves that your loop behaves as expected.
+
+**NOTE: ADD LOOP INVARIANT EXAMPLE**

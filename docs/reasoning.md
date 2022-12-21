@@ -19,6 +19,15 @@ Since specifications are a contract between functions and their callers, they ha
 \end{itemize}
 Type signature is a specification form - the caller provides a particular type of object to the function, and the function then supplies the caller with a result of the correct type.  The type checker (among other things) verifies that the parties meet the type contract.  If the language is type-safe (ex., Java), we can trust the type checker.  Java catches argument-type violations at compile time.  However, if the language is type unsafe, it would be possible for a caller to pass an argument of the wrong type!
 
+## Forward Reasoning
+
+**NOTE: ADD FORWARD REASONING EXAMPLE**
+
+## Backward Reasoning
+Unlike forward reasoning, there is some specific syntax for backward reasoning.  To denote our thought processes, we write wp("expression," {Q}) = {Q}, where wp stands for weakest precondition.  We want the weakest precondition, so when we carry our work up to the top, the weakest precondition for the whole function remains.
+
+**NOTE: ADD BACKWARD REASONING EXAMPLE**
+
 ## Loop Invariant
 Reasoning about loops can be tricky because a loop represents an unknown number of paths.  Recursion presents the same problem - it might not be possible to enumerate all paths.  The key to both is to choose a loop invariant, then prove by induction that the loop's specifications hold for each iteration.
 \newline
@@ -47,9 +56,6 @@ We can always substitute a stronger precondition, and the original Hoare triple 
     // postcondition: Q
     
     wp(“if (b)S1 else S2”, Q) = { ( b && wp(“S1”,Q) ) || ( not(b) && wp(“S2”,Q) ) }
-
-## Backward Reasoning
-Unlike forward reasoning, there is some specific syntax for backward reasoning.  To denote our thought processes, we write wp("expression," {Q}) = {Q}, where wp stands for weakest precondition.  We want the weakest precondition, so when we carry our work up to the top, the weakest precondition for the whole function remains.
 
 ## Weaker and Stronger Conditions
 \includegraphics[width=\textwidth]{stronger.png}

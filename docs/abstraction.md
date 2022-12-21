@@ -6,7 +6,9 @@ In addition to encapsulating an object and its operations, ADTs can be a specifi
 
 Thus, we should consider data representation when designing large software systems.  Before implementation, consider the data model; what is the data representing?  Will the necessary operations operating on it be efficient without compromising understandability?  ADTs solve this problem by shielding users from implementation; clients do not directly depend on the program's internals.
 
-## Control Abstraction (Procedural Abstraction)
+**NOTE: ADD ADT EXAMPLE**
+
+## Control Abstraction or Procedural Abstraction
 **Control Abstraction**, or **Procedural Abstraction**, is <span style="color:blue;">the procedure for implementing code according to specifications, where method names, method signatures, and specifications are exposed to the client, but implementation is hidden</span>.  One part of this is a **Method Signature**, sometimes referred to simply as a **Signature**, which <span style="color:blue;">provides a method's name, parameter types, and return type</span>.  With these pieces, ADTs supply the abstraction barrier between implementation and representation.
 
 ## Data Abstraction
@@ -22,13 +24,15 @@ In Java, ADT operations are usually **public**, or <span style="color:blue;">acc
 
 ![](images/jadt.png)
 
-## Domain
-The mathematical concepts of domain and range also apply to ADTs.  In a data type, the **Domain** <span style="color:blue;">consists of all implementations that satisfy the representation invariant</span>.  The representation invariant simplifies the abstract function by restricting its domain.  The **range** of an ADT is <span style="color:blue;">the restriction of its possible stored values</span>.  The range can be tough to denote relative to the domain; it is easy for mathematical concepts like sets, but hard to define for real-world ADTs.  For instance, in a set, the range might be restricted to the type of value it can contain.  In other data types, the same range could be applied, but may also contain artifacts from the specifications of the ADT, such as a value range or a maximum length to a list.
+## Domain and Range
+The mathematical concepts of domain and range also apply to ADTs.  In a data type, the **Domain** <span style="color:blue;">consists of all implementations that satisfy the representation invariant</span>.  The representation invariant simplifies the abstract function by restricting its domain.  The **Range** of an ADT is <span style="color:blue;">the restriction of its possible stored values</span>.  The range can be tough to denote relative to the domain; it is easy for mathematical concepts like sets, but hard to define for real-world ADTs.  For instance, in a set, the range might be restricted to the type of value it can contain.  In other data types, the same range could be applied, but may also contain artifacts from the specifications of the ADT, such as a value range or a maximum length to a list.
 
 ## Representation Invariants
 The **Representation Invariant** <span style="color:blue;">states the constraints specific data structures and algorithms impose</span>.  For example, a binary tree's representation invariant should verify that it has no cycles.
 
 Representation Invariants also describe whether or not ADTs are well formed.  They must be true before and after every method is executed.  In that way, they are like loop invariants - they do not need to hold during execution.  The correctness of operation implementation depends on well-formed data.  Luckily, the representation invariant ensures correctness by excluding values that do not correspond to abstract values.  If the data does not matter, then the representation invariant does not care.
+
+**NOTE: INCLUDE REP INVARIANT EXAMPLE**
 
 **Representation Exposure**, <span style="color:blue;">when a necessary aspect of the ADT is left out of the representation invariant</span>, is a significant problem.  We can avoid making representation exposures by practicing **Defensive Programming**, where we <span style="color:blue;">write code assuming that the client will make mistakes</span>: checking the representation invariant, preconditions, and postconditions against the implementation.  The role of the representation invariant is to simplify the abstraction function by limiting valid concrete values, which then limits the domain of the abstraction function.
 
@@ -39,16 +43,18 @@ In Java, we can add a **`checkRep()` method** that <span style="color:blue;">che
 
 Through reasoning, we can prove that all objects satisfy the representation invariant.  Know how to use reasoning appropriately; thorough testing can be easier than representation invariants to implement.  When it is not, we can prove that all objects satisfy the representation invariant through induction and considering all ways to make a new object with creators and producers.
 
-## Induction
+## Mathematical Induction
 Reasoning about ADTs uses induction.  When reasoning about representation invariants, the inductive step must consider all possible changes to the representation, including representation exposure.  If the proof does not account for representation exposure, this is invalid.
 
-The steps to successful induction are as follows:
+The steps to successful mathematical induction are as follows:
 
 1. **Initial Step**: <span style="color:blue;">Prove the proposition is true for n = 0</span>.
 2. **Inductive Step**: <span style="color:blue;">Prove that if the proposition is true for n = k, then it must also be true for n = k + 1</span>.  This step is complex, and breaking it up into several stages helps.
 	- **Inductive Hypothesis**: <span style="color:blue;">Assume what the proposition asserts for the case n = k</span>.
 	- **Step 2**: <span style="color:blue;">Write down what the proposition asserts for the case n = k + 1.  This is what the induction proves</span>.
 	- **Step 3**: <span style="color:blue;">Prove the statement in Stage 2 using the assumption in Stage 1</span>.  The technique varies from problem to problem, depending on the mathematical content.  Use ingenuity, common sense, and knowledge of mathematics here.  Additionally, RPI's Foundations of Computer Science class and associated text have suitable methods for solving proofs with induction.
+
+In this class, we use computational induction, an iteration of induction which is futher explored in Loops.
 
 ## Review
 The Representation Invariant defines the set of valid objects in implementation.
