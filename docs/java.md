@@ -80,10 +80,6 @@ In Java, an Interface cannot contain any implementation, only method signatures.
 
 In C++, we use the terms base class and derived class to refer to the equivalent Java superclass and subclass.  In C++, we have member variables and member functions, whereas in Java, we have instance or static fields and methods.  Java also has interfaces, which are just collections of method signatures.
 
-## Mutability
-
-All objects are either immutable or mutable; strings are immutable, and arrays are mutable.  If an object has two reference variables, it is accessible through both.
-
 ## Types and Type Checking
 
 Types create abstraction and safety within a program.  By disallowing operations on unsupported objects, types and type checking prevent the program from going wrong.

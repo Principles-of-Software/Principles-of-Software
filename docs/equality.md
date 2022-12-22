@@ -1,43 +1,53 @@
 # Identity Equality
-Equality in Java is a loaded question: what does it MEAN to be equal?  Java uses a reference model for class types.  The `=` operator copies references to objects, not the actual "stuff" the object is made from.  For primitives only, it copies data.  In Java, `==` tests for reference equality, if the objects point to the same address in memory.  `.equals()` tests for value equality, which is more often desirable because it tests if values are the same.
 
-If two objects are equal now, will they always be equal?  For immutable objects, yes; for mutable objects, no!
+The question of equality in Java is a loaded one: what does it *mean* to be equal?  Java uses a reference model for class types.  This means that the **Assignment Operator (`=`)** <span style="color:blue;">copies addresses to objects, not their values</span>.  Primitives are the exception; because they are often so small, the assignment operator copies their data.  In Java, `==` tests for **Reference Equality** - <span style="color:blue;">whether or not two objects have the same address</span>.  `.equals()` tests for **Value Equality**, <span style="color:blue;">which tests if values are the same</span>.  Value equality is used more often; is it clear why?
 
-Two objects are behaviorally equivalent if no sequence of operations can distinguish them.  This is "eternal" equality.  Two objects are observationally equivalent if no sequence of observer operations can distinguish them.  Excluding mutators and ==, objects look similar because they have the same attributes.
+If two objects are equal now, will they always be equal?  For immutable objects, yes; for mutable objects, no.
+
+Two objects are **Behaviorally Equivalent** <span style="color:blue;">if no sequence of operations can distinguish them</span>.  Behavioral equivalence is also called **Eternal Equality**.  Two objects are **Observationally Equivalent** <span style="color:blue;">if no sequence of observer operations can distinguish them</span>.  Excluding mutators and `==`, with observational equivalence, objects look the same because they have the same attributes.
 
 ## Properties of Equality
+
 Equality is:
 
-- Reflexive: `a.equals(a);`
-- Symmetric: `a.equals(b) === b.equals(a)`
-- Transitive: `a == b && b == c -> a $==$ c`
+- **Reflexive**: <span style="color:blue;">`a.equals(a);`</span>
+- **Symmetric**: <span style="color:blue;">`a.equals(b) -> b.equals(a)`</span>
+- **Transitive**: <span style="color:blue;">`a == b && b == c -> a == c`</span>
 
-In implementation, these all must hold.  Equality is an equivalence relationship that can get complicated in the context of inheritance.  Equal objects must have the same `hashCode()`.
+In implementation, these all must hold.  Equality is an equivalence relationship that can get complicated in the context of inheritance.  For example, equal objects must have the same `hashCode()`.
 
-Be very careful with elements of sets.  Ideally, elements should be immutable objects because immutable objects guarantee behavioral equivalence.  Thus, the Java spec for sets warns about using mutable objects as set elements.  
-
-Take heed also with equals and hashCode methods on mutable objects.  From the spec of object.equals, it is consistent.  For any non-null reference values x and y, multiple invocations of `x.equals()` consistently return true or consistently return false, provided no information used in equals comparisons on the objects is modified.
-
-From JavaDoc, great care must be taken if mutable objects are used as set elements.  A set's behavior is unspecified if the value of an object changes in a manner that affects equal comparisons while the object is an element in the set.  A particular case of this prohibition is that a set cannot contain itself as an element.  The moral of the story is: do not put mutable objects in a set!
-
-Objects of different types are usually unequal.  When unsure, use the `==` operator to check if method arguments are references to this.Object.  It is also possible to use the `instanceOf()` operator to check if the argument is of the correct type, and cast the argument to the correct type if not.  Make sure all objects obey the laws of equality, and always override hashCode along with equals.
+Be very careful with elements of sets.  Ideally, elements should be immutable, because immutable objects guarantee behavioral equivalence.  That guarantee is a valuable feature; the Java specification for sets warns about using mutable objects as set elements.
 
 ## Hash Function
-A hash function maps an object to a number.  The number is used to index into a fixed-size table called a hash table for data storage.  Hash functions allow data storage and retrieval applications to access data in constant time per retrieval.  Beware, though: the worst case for this can be harmful.
 
-The implementation for hashCode is consistent with `.equals()`; equal objects must have the same hashCode.  `hashCode()` is used for bucketing in Hash implementations - it sticks objects in the same place in memory.  `.contains()`, takes an element's hash code and searches for the bucket where the hash code points.  The value received from `hashCode()` is used to determine the bucket for storing elements of the set or map.
+A **Hash Function** <span style="color:blue;">maps an object to a number</span>.  The number is used as an index in a fixed-size table called a hash table for data storage.  Hashing allows data storage and retrieval applications to access data quickly and nearly constantly per retrieval.  However, developers beware: the worst case for hashing time can be extensive.
 
-By definition, if two objects are equal, their hash code must also be equal.  Therefore, if the `equals()` method is overridden, the way two objects are equated must also change.
+The implementation for `.hashCode` is consistent with `.equals()`; equal objects must have the same `hashCode`.  `hashCode()` is used for bucketing in Hash implementations - it places objects in the same place in memory.  `.contains()` takes the element's hash code, then looks for the address where the hash code points.  The value received from **hashCode()** is used to determine the address for, as an example, storing elements of a set or map.
+
+By definition, if two objects are equal, their hash code must also be equal; if `equals()` is overridden, the way two objects are equated must also change.
+
+## Overloading vs. Overriding
+
+Method **Overloading** is when <span style="color:blue;">two or more methods in the same class have the same name but different parameters</span>.  Overloading happens at compile time, meaning all objects will be seen as the Object type until the overload.
+
+Method **Overriding** is when <span style="color:blue;">a derived class requires a different definition for an inherited method</span>.  Arguments stay the same in a method override.  Overriding happens at runtime.  When altering object equality, `.equals()` and `.hashCode()` need to be overridden.
+
+An exciting thing about method overriding is that Java supports covariant return types for overridden methods.  This means an overridden method may have a *more* specific return type than its original form.  As long as the new return type is assignable to the overridden method's return type, covariance is allowed.
+
+The overriding method cannot have a less restrictive access modifier than the overridden method.  In addition, the return type must be the same as, or a subtype of, the return type declared in the superclass' overridden method.  If the superclass method does not declare any exceptions, then the subclass' overridden method cannot declare a checked exception, though it can compare unchecked exceptions.
+
+A final or static method cannot be overridden.
 
 ## Implementation
-Overriding `Object.equals()`:
+
+Overriding Object.equals():
 
     // requires Object arg
     // modifies none
     // effects none
     // throws none
     // returns true if this == arg else false
-    // i.e., returns true if arg is the same reference as this
+    // i.e., returns true if arg is the same ref as this
     @Override
     public boolean equals(Object obj) {
         if (obj == null) return false;
@@ -47,34 +57,22 @@ Overriding `Object.equals()`:
         // then compare attributes and return true if they work
     }
 
-Overriding `Object.hashCode()`:
+Overriding Object.hashCode():
 
     // requires none
     // modifies none
     // effects none
     // throws none
     // returns true if this == arg else false
-    // i.e., returns true if arg is the same reference as this
+    // i.e., returns true if arg is the same ref as this
     @Override
     public int hashCode() {
         int h = this.hashCode();
         // use attributes to figure it out
     }
 
-## Overloading vs. Overriding
-Method overloading is when two or more methods in the same class have the same name but different parameters.  Overloading happens at compile time, which means that all objects will be seen as the Object type.
-
-Method overriding is when a derived class requires a different definition for an inherited method.  The method can also be redefined in the derived class!  The arguments stay the same in a method override.  This happens at runtime.  With `.equals()` and `.hashCode()`, you want to override.
-
-An exciting thing about method overriding is that Java supports covariant return types for overridden methods.  This means an overridden method may have a \textit{more} specific return type than the rest.  As long as the new return type is assigned to the overridden method's return type, covariance here is allowed. 
-
-The overriding method cannot have a more restrictive access modifier (public, protected, private) than the overridden one, but it can be less restrictive.  The argument list must exactly match that of the overridden method.  If it doesn't, you're overloading.  The return type must be the same as, or a subtype of, the return type declared in the overridden method in the superclass.  If the superclass method does not declare any exception, then the subclass overridden method cannot declare a checked exception, though it can compare unchecked exceptions.
-
-A final or static method cannot be overridden.
-
-Overriding equality seems easy, but there are many ways to get it wrong.  The general contract of maintaining equality must be maintained.  Overriding equality is not always necessary or helpful, either.  For instance, such an override is unnecessary when each instance of the affected object is inherently unique, a superclass (whose implementation is adequate for this class) has already overridden equals, or its equals method is never invoked.  Overriding equality is not practical when the affected class is private or package-private or does not provide a logical equality test.
-
 ## Abstract Classes
-We subclass abstract classes because they cannot be instantiated.  There is no equality problem if the superclass cannot be instantiated!
 
-With ADTs, we compare abstract values, not representations.  Usually, many valid representations map to the same abstract value.  If two concrete objects map to the same abstract value, they must be equal.  A stronger representation invariant shrinks the domain of the Abstract Function and simplifies `.equals()`.
+We subclass abstract classes because they cannot be instantiated.  Therefore, there is no equality problem if the superclass cannot be instantiated.
+
+With ADTs, we compare abstract values, not representations.  Usually, many valid representations map to the same abstract value.  If two concrete objects map to the same abstract value, they must be equal.  In that way, a stronger representation invariant shrinks the domain of the Abstract Function and simplifies `.equals()`.

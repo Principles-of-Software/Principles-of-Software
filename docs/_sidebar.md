@@ -10,8 +10,6 @@
 
 - [Java](java.md)
 
-- [Loops](loops.md)
-
 - [Dafny](dafny.md)
 
 - [Testing](testing.md)
