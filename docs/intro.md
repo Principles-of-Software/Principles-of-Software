@@ -89,9 +89,9 @@ JUnit uses annotations to specify test runs:
 - `@BeforeClass` is the static method that configures the test run.  The JUnit framework runs this method before all tests and creates an instance of the module being tested
 - `@Test` marks a method as a test method; it is run in JUnit as a test
 - `assertEquals` takes in an expression and its expected result, and displays a message if the two arguments match.
-    - syntax for this is: `assertEquals(message, expected_result, expression)`
+    - Syntax for this is: `assertEquals(message, expected_result, expression)`
 - `assertTrue` takes in a boolean expression and displays a message if the expression resolves to `true`.
-    - syntax for this is: `assertTrue(message, boolean_expression)`
+    - Syntax for this is: `assertTrue(message, boolean_expression)`
 
 For example:
 

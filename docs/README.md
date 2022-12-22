@@ -39,6 +39,8 @@ Dr. Barb Cutler and the Submitty team for making grading Principles of Software 
 
 and Dr. Konstantin Kuzmin, who oversaw, edited, and guided the author in the creation of this publication.
 
+This book should not be considered an original work - it is a collage of expertise woven together by an over-ambitious undergraduate at Rensselaer Polytechnic Institute.  All resources, sources, quotes, and some extra ideas are dully cited in the Appendix.  If you should desire to learn more about any idea in this book, consult the Appendix or contact [Alice Bibaud](alice.bibaud@gmail.com). 
+
 ## Textbook
 
 This is a living document meant to supplement and improve upon RPI's Principles of Software course.  Users are encouraged to use it as such, as well as a launching point for further reading into these subjects.
