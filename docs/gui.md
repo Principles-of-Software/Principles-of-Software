@@ -1,177 +1,276 @@
 # Graphical User Interface (GUI) Programming
-We use design patterns and concepts to program GUIs.  Often, the Model View Controller (i.e., Observer) or Composite design pattern is used when programming graphical user interfaces.  GUI components are often part of the View and Controller.  GUI components are often composites.  GUIs use Event-driven programming and Large APIs.
 
-## Serialization
-HashSet is a serializable class.  Convert its state to a byte stream so that the byte stream can be reverted back into a copy of the object.  This requires a version number of type long.  After a serialized object has been written into a file, it can be read from the file and deserialized.  If you extend Serializable and don’t have a version number, Java issues a warning.  Eclipse will generate one for you.  For example:
-\begin{verbatim}
-public class Employee implements java.io.Serializable { 
-    public String name;
-    public String address;
-    public transient int SSN;
-    public int number;
-    public void mailCheck() {
-        System.out.println("Mailing a check to " + name + " " + address); 
+We use design patterns and concepts to program GUIs.  The Observer or Composite design pattern is often used when programming graphical user interfaces.  GUI components are often part of the View and Controller.  GUI components are often composites.  GUIs use Event-driven programming and Large APIs.
+
+## Terminology
+
+We must lay out some important definitions before moving forward with GUI programming.  For instance, a **Window** is <span style="color:blue;">a first-class citizen of the graphical desktop, such as a frame</span>.
+
+A **Component** is <span style="color:blue;">a GUI widget that resides in a window, such as a button, text box, or label</span>.  Every property in a component has accessor methods, such as `getFont` or `isVisible`, and modifier methods, like `setFont`.  Some modifiable properties include **Background**, the <span style="color:blue;">color behind component</span>, **Border**, the <span style="color:blue;">line around a component</span>; **Enabled**, an <span style="color:blue;">indicator of intractability</span>; **Focusable**, <span style="color:blue;">whether text can be edited</span>; and **Font**, <span style="color:blue;">used for text in components</span>.
+
+A **Container** is <span style="color:blue;">a component that holds other components</span>.  Windows, such as `JFrame` or `Jdialog`, are **Top-Level Containers**: <span style="color:blue;">they live at the top of UI hierarchy, and are not nested; they can be used by themselves, but usually host other components</span>.  `JPanel`, `JToolBar` are **Mid-Level Containers** -- <span style="color:blue;">they can stand alone, but more often contain other components</span>.  **JPanel** is <span style="color:blue;">a general-purpose component for drawing or hosting other UI elements</span>.  Some examples of **Specialized Containers** are <span style="color:blue;">menus or list boxes; all components are containers, but not all are general purpose</span>.
+There are some methods used very often in GUI programming.  **`setSize(int width, int height)`** <span style="color:blue;">gives the frame a fixed size in pixels</span>.  **`pack()`** <span style="color:blue;">resizes the frame to fit components</span>, and **`setVisible(true)`** <span style="color:blue;">shows the window</span>.
+
+## JFrame
+
+A **JFrame** is <span style="color:blue;">a top-level graphical window</span> that typically holds other components.  In implementation, some common methods are:
+
+- `JFrame(String title)`: constructor, title optional
+- `setSize(int width, int height)`
+- `add(Component c)`: add component to window
+- `setVisible(boolean v)`: necessary to initialize on scree.  Do not forget this step!
+
+Even when containers are closed, they may still be serving their purpose.  `setDefaultCloseOperation(int o)` sets a given action for the frame to perform when it closes.  A common value for this is `JFrame.EXIT\_ON\_CLOSE`.  If the closing operation is not set, the program will never exit, even if the frame is closed.  Do not forget this to set closing behavior!  Options for behavior on close are:
+
+- **`DO\_NOTHING\_ON\_CLOSE`**: <span style="color:blue;">Do not do anything - handle the operation in the `windowClosing` method of a registered `WindowListener` object</span>.
+- **`HIDE\_ON\_CLOSE`**: <span style="color:blue;">Automatically hide the frame after invoking any registered `WindowListener` objects</span>.
+- **`DISPOSE\_ON\_CLOSE`**: <span style="color:blue;">Automatically hide and dispose of the frame after invoking any registered `WindowListener` objects</span>.
+- **`EXIT\_ON\_CLOSE`**: <span style="color:blue;">Exit the application using the `System exit` method</span>.  Use this only in applications.
+
+A good example of `JFrame` in action, based on examples 7-1 in Core Java 8th edition, is as follows:
+
+    package gui1;    
+    import javax.swing.*;    
+    /* Simple graphics window (based on ex. 7-1 in Core Java 8th ed.)   */    
+    public class SimpleFrameMain {    
+        /** Create a frame and display it. */    
+        public static void main(String[] args) {    
+    SimpleFrame frame = new SimpleFrame("A Window");     
+    frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);    
+    frame.setVisible(true);    
+        }    
+    }    
+    class SimpleFrame extends JFrame {    
+        public SimpleFrame(String title) {    
+    super(title);   // set the title    
+    pack(); // resize the frame to fit components if there are any    
+    this.setSize(1200,800);    
+        }    
     }
-}
-\end{verbatim}
-Fields not meant to be serialized are marked as transient.
-\\
-\\
-In general, the structure of a GUI Application goes: 1) Place components in a container (JPanel) then add container to frame (JFrame).  The Container stores components and governs their positions, sizes and resizing behavior.  Once components are added to their container, pack() figures the sizes of all components and calls the layout manager to set locations in the container.  If your window doesn’t look right, you may be forgetting pack().  Use SimpleLayoutMain.java.
 
-\subsection{Java GUI Libraries}
-Swing is the main Java GUI library.  It paints GUI components itself, pixel-by-pixel.  It does not delegate to the OS window system, though it emulates the look and feel of several platforms.  It's also platform-independent.  We like Swing because of its expanded set of widgets and features, cross-platform compatibility, and Object Oriented Design.  Swing component objects all have a certain size they would like to be: just large enough to fit their contents (text, icons, etc.).  This is called the preferred size of the component.  Some types of layout managers (e.g., FlowLayout) choose to size the components inside them to the preferred size.  Others (e.g., BorderLayout, GridLayout) disregard (some dimension of) the preferred size and use some other scheme to size the components.
-\\
-\\
-Abstract Windowing Toolkit (AWT) is Sun’s initial GUI library.  It maps Java code to each OS’s windowing system.  Unfortunately, you've got a limited set of widgets, and it's clunky to use.
-\\
-\\
-JavaFX is the most recent GUI library.  It was intended to eventually replace Swing, and is declarative in nature.
+## JPanel
 
-\subsection{Terminology}
-window: A first-class citizen of the graphical desktop.  E.g., frame.
-\\
-\\
-component: A GUI widget that resides in a window.  E.g., button, text box or label.  Every property in a component has a get (or is) accessor and a set modifier. E.g., getFont, setFont, isVisible.  Properties include: background – color behind component; border - border line around component; enabled – whether it can be interacted with; focusable – whether text can be typed on it; font – font used for text in component, etc.
-\\
-\\
-container: A component that holds other components.  Windows, such as JFrame or Jdialog are top-level containers.  They live at the top of UI hierarchy, and are not nested.  They can be used by themselves, but usually as a host for other components.  Mid-level containers are JPanel, JToolBar.  Sometimes, these can contain other components, sometimes not.  JPanel is a general-purpose component for drawing or hosting other UI elements.  Specialized containers are menus, list boxes; all components are containers, but not all are general purpose.
+Panels are used to group other containers.  They contain graphics, buttons, labels, and anything else a panel should have.  Panels must be added to a frame or other container via `frame.add(new JPanel(...));`.  `JPanel` has many methods in common with `JFrame` because they serve a similar function, though panels can be nested at any depth.  However, some new methods exist, like `setPreferredSize(Dimension d)`.
 
-\subsection{JFrame - Top-Level Window}
-It's a graphical window on the screen.  Typically holds other components.  Some common methods are:
-\begin{itemize}
-    \item JFrame(String title): constructor, title optional
-    \item setSize(int width, int height)
-    \item add(Component c): add component to window
-    \item setVisible(boolean v) – don’t forget this!
-\end{itemize}
+## Layout Managers
 
-setDefaultCloseOperation(int o) makes the frame perform the given action when it closes.  A common value is JFrame.EXIT\_ON\_CLOSE.  If not set, the program will never exit even if the frame is closed.  Don’t forget this!  Your options for behavior on close are:
+Layout Managers are in charge of sizing and positioning.  **Absolute Positioning** is a feature of C++, C\#, and many other languages, where <span style="color:blue;">the programmer specifies the exact coordinates of every component</span>.  For example, with absolute positioning, one can say, “Put this button at (`x=15`, `y=75`) and make it` 70x31` pixels in size”.  In contrast, layout managers in Java create objects that decide where to position each component based on general rules or criteria.  For example, “Put these four buttons into a `2x2` grid” or “place these text boxes in a horizontal flow in the southern part of the frame.”
 
-\begin{itemize}
-    \item DO\_NOTHING\_ON\_CLOSE (defined in WindowConstants): Don't do anything; require the program to handle the operation in the windowClosing method of a registered WindowListener object.
-    \item HIDE\_ON\_CLOSE (defined in WindowConstants): Automatically hide the frame after invoking any registered WindowListener objects.
-    \item DISPOSE\_ON\_CLOSE (defined in WindowConstants): Automatically hide and dispose the frame after invoking any registered WindowListener objects.
-    \item EXIT\_ON\_CLOSE (defined in JFrame): Exit the application using the System exit method.  Use this only in applications.
-\end{itemize}
+Each container has a layout manager.  **`FlowLayout (left to right, top to bottom)`**, which <span style="color:blue;">is the default layout manager for `JPanel`</span>, and **`BorderLayout (center, north, south, east, west)`**, which <span style="color:blue;">is the default layout manager for JFrame</span>.  `FlowLayout` treats containers as left-to-right, top-to-bottom “paragraphs.”  Components are then given a preferred size and positioned in the added order.  If they are too long, components wrap around to the next line.
 
-setSize(int width, int height) gives the frame a fixed size in pixels.  pack() resizes the frame to fit components, and setVisible(true) shows the window.
+`BorderLayout` divides containers into five regions: North and South regions expand to fill components horizontally and use the preferred size convention vertically.  West and East regions expand to fill regions vertically and the preferred size horizontally.  Finally, center regions use all space not occupied by other elements.
 
-\subsection{JPanel - a General Purpose Container}
-panels are used to group other containers - a place for graphics, or to hold buttons, labels, etc.  They must be added to a frame or other container via frame.add(new JPanel(...));.  panels can be nested at any depth.  JPanel has many methods in common with JFrame because they serve a similar function.  There are some new methods though, like setPreferredSize(Dimension d).
+## Graphing, Painting, and other things
 
-\subsection{Layout Managers}
-Layout Managers are in charge of sizing and positioning.  Absolute positioning is in (C++, C\#, other), where the programmer specifies the exact coordinates of every component.  E.g., “Put this button at (x=15, y=75) and make it 70x31 pixel in size”.  Layout managers in Java create objects that decide where to position each component based on some general rules or criteria.  For example, “Put these four buttons into a 2x2 “grid” and put these text boxes in a “horizontal flow” in the “south” part of the frame”.
-\\
-\\
-Each container has a layout manager.  You've got FlowLayout (left to right, top to bottom), which is the default for JPanel, and BorderLayout (“center”, “north”, “south”, “east”, “west”), which is the default for JFrame.
-\\
-\\
-FlowLayout treats container as a left-to-right, top-to-bottom “paragraph”.  Components are given a preferred size, horizontally and vertically.  Components are positioned in the order added.  If they're too long, components wrap around to the next line.
-\\
-\\
-BorderLayout divides the container into five regions.  NORTH and SOUTH regions expand to fill component horizontally and use the
-component’s preferred size vertically.  WEST and EAST regions expand to fill region vertically and use the component’s preferred size horizontally.  CENTER uses all space not occupied by others.
+What if we want to draw something like an image or a path?  Extending JPanel and overriding `paintComponent` enable this.  The method in `JComponent` that draws components is `SimplePaintMain.java`.
 
-\subsection{Graphing, Painting, etc.}
-What if we want to draw something?  An image, a path?  You should extend JPanel and override method paintComponent.  The Method in JComponent that draws the component is SimplePaintMain.java.
-\\
-\\
-There are many methods to draw various lines, shapes.  You can also draw images (pictures, etc.).  Load the image file into an Image object and use g.drawImage(...).  In the program (maybe not in paintComponent): Image image = ImageIO.read(file).  Then, in paintComponent, g.drawImage(image, ... ).  There is built-in support for GIF, PNG, JPEG, BMP, and WBMP.
-\\
-\\
-Graphics is part of the original Java AWT • e.g.,g.drawRect(...).  Swing introduced Graphics2D, which added an Object Oriented interface, so you could create instances of Shape, e.g., Line2D, Rectangle2D, etc.  Then call draw with respective arg: draw(Shape s).  Argument passed to paintComponent is a Graphics object.  You can always cast it to Graphics2D, which supports both sets of graphics methods.  Use whichever you like.
-\\
-\\
-The window manager calls paintComponent whenever it wants!!!  When the window is first made visible and whenever after that it is needed.  Never call paintComponent yourself!  Thus, paintComponent must always be ready to repaint.  You must be able to access all information needed.  If you must redraw a window, call repaint().  This tells the window manager to schedule repainting.  The window manager will call paintComponent when it decides to redraw (soon, but not right away).
-\\
-\\
-You must always override paintComponent(Graphics) if you want to draw a component.  Always call super.paintComponent(g) first from your paintComponent(...). Why?  NEVER call paintComponent yourself.  Always paint the entire picture from scratch.
-\\
-\\
-Use paintComponents’ Graphics parameter to do all the drawing.  ONLY use it for that.  Don’t copy it, try to replace it, permanently side-effect it, etc.  It is quick to anger.  Don't create new Graphics or Graphics2D objects.
+There are many methods to draw various lines, shapes, and images.  For images, the source file into an Image object and use `g.drawImage(...)`.  Then, the implementation will look like this:
 
-\subsection{Event-Driven Programming}
-The main body of the program functions like an event loop.  You don't actually program like this.  Event-Driven Programming is a style of programming where the flow of execution is dictated by events.  The program loads, then waits for the user to input events.  As the event occurs, the program runs code to respond.  The flow of what code is executed is determined by the series of events that occur.
-\\
-\\
-In contrast, application or algorithm-driven control expects input in well-defined places.  This is typical for large non-GUI applications.
-\\
-\\
-An event is an object that represents the user’s interaction with a GUI component; event can be “handled”.
-\\
-\\
-A listener is an object that waits for events and handles them.  To handle an event, you must attach a listener to a component.  The listener will be notified when the event (e.g., button click) occurs.
-\\
-\\
-There are a few different kinds of GUI events:
-\begin{itemize}
-    \item Mouse: move/drag/click, mouse button press / release
-    \item Keyboard: key press/release, sometimes with modifiers like shift/control/alt
-    \item Touchscreen: finger tap/drag
-    \item Joystick, drawing tablet, other device inputs
-    \item Window resize/minimize/restore/close
-    \item Network activity or file I/O (start, done, error)
-    \item Timer interrupt (including animations)
-\end{itemize}
-Every event object contains information about the event.  You get the GUI component that triggered the event, and other information depending on the event, like ActionEvent (text string from a button) or MouseEvent (mouse coordinates).  An action event is an action that has occurred on a GUI component.  This is the most common Event type in Swing.  Some examples are button or menu clicks, or check box checking/unchecking, etc.  These are all represented by the class ActionEvent.  They are handled by objects that implement interface ActionListener.
-\\
-\\
-When an event occurs, the appropriate method specified in the interface is called.  When an action event (e.g., a button click) occurs, actionPerformed gets called on the attached (i.e., registered) Listeners.  An event object is passed as a parameter to the event listener method - for instance, actionPerformed(ActionEvent e).
-\\
-\\
-JButton(String text) creates a new button with the given string as text.  String getText() and void setText(String text) get and set button’s text, respectively.  Create a JButton and add it to the window, create an object that implements Action Listener, add it to the button’s listeners with ButtonDemo1.java.
-\\
-\\
-A single button listener can handle several buttons.  How to tell which is which?  An ActionEvent has a getActionCommand method that returns (for a button) the “action command” string.  Default is the button name.  It is better to set it to a specific string, which will remain the same even if UI (and button name) changes.
-
-\subsection{Nested Classes}
-A nested class is a class defined in another class.  static nested class or non-static nested class (known as inner classes) are hidden from other classes.  Inner objects can access the fields and methods of their outer object.  Event listeners are often defined as inner classes inside a GUI.  The syntax is as follows:
-\begin{verbatim}
-public class OuterClass { 
-    ...
-    // Instance nested class (inner class)
-    // A different class for each instance of Outer private class InnerClass { ... } 
-    // Static nested class
-    // One class, shared by all instances of Outer
-    static private class NestedClass { ... } 
-}
-\end{verbatim}
-If private, only the outer class can see the nested class or create objects of it.  Each inner object is associated with the outer object that created it, so it can access or modify that outer object’s methods or fields.  The inner class can refer to the outer object as OuterClass.this.
-\\
-\\
-An Anonymous Inner class is a use-once class, defined directly in the new expression.  Specify your base class to be extended or interface to be implemented, and override or implement needed methods.  If the class starts to be complicated, use an ordinary class!  The syntax is as follows:
-\begin{verbatim}
-    button.addActionListner(new ActionListner() { 
-        public void actionPerformed(ActionEvent e) {
-            doSomething() 
-            \\ implementation of method for anonymous class
+    package gui3;
+    import java.awt.*;
+    import javax.swing.*;
+    /* Example overriding paintComponent to create a static drawing. */
+    public class SimplePaintMain {
+        /** Create a labeled panel with a couple of shapes and display it. */
+        public static void main(String[] args) {
+        JFrame frame = new JFrame("Simple Painting Example");
+        JPanel panel = new SimplePainting();
+        panel.setPreferredSize(new Dimension(300,200));
+        JLabel label = new JLabel("A Work of Art");
+        label.setHorizontalAlignment(SwingConstants.CENTER);
+        frame.add(panel,BorderLayout.CENTER);
+        frame.add(label,BorderLayout.SOUTH);
+        frame.pack();
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
         }
     }
-)
-\end{verbatim}
-the new expression is to create the class instance, and ActionListener is the base class or interface to be extended.
+    class SimplePainting extends JPanel {
+        private static final long serialVersionUID = -4725346878809211984L;
+        /** Paint some simple shapes whenever the window manager calls this. */
+        @Override
+        public void paintComponent(Graphics g) {
+        // ensure any background belonging to the container is painted
+        super.paintComponent(g);
+        // Cast g to its actual class to make graphics2d methods available.
+        // We do not use them here, but this cast is often necessary.
+        Graphics2D g2 = (Graphics2D) g;
+        // draw a couple of shapes
+        g2.setColor(Color.green);
+        g2.fillOval(40,30,120,100);
+        g2.setColor(Color.red);
+        g2.drawRect(60,50,60,60);
+        System.out.println("Finished drawing");
+        }
+    }
 
-\subsection{Program Thread and UI Thread}
-Your program and the UI run in concurrent threads.  All UI actions happen in the UI thread, including callbacks like paintComponent and actionPerformed.  After event handling, you may call repaint if paintComponent needs to run, but do not try to draw anything from inside the event handler!  The series of actions is as follows:
-\begin{verbatim}
-    - Repaint() returns immediately
-    - Painting occurs when window manager is ready
-    - paintComponent() is called
-\end{verbatim}
-\begin{center}
-\includegraphics[width=5cm]{programwindow.png}
-\end{center}
-In the UI Thread, event handlers should not do a lot of work.  If the event handler does a lot of work, the interface will appear to freeze up.  If there is a lot to do, the event handler should set a bit that the program thread will notice, then do the heavy work back in the program thread.
+The window manager calls `paintComponent` when the window is first made visible and whenever it is needed afterward.  Never call `paintComponent` manually - that may take its resources away from a more automatic repaint.  Instead, if manually redrawing a window is necessary, call `repaint()`.  That tells the window manager to schedule repainting.  The window manager will then call `paintComponent` when it can, which may not be right away.
 
-\subsection{Components, Events, Listeners, and the Observer Pattern}
-Model View Controller (another name for the Observer Pattern) comes up a lot.  One possible design for a GUI could be:
-\begin{itemize}
-    \item A model class (e.g., Sale) is the observable
-    \item When Sale changes, it notifies its observers
-    \item A Component, (e.g., a class that extends JFrame) is the observer (this is achieved by also implementing some Listener interface)
-\end{itemize}
+Use `paintComponent`'s `Graphics` parameter to do all the drawing, and only the drawing.  Do not meddle with the `Graphics` parameter otherwise; it is quick to anger.  In the same vein, do not create new Graphics or Graphics2D objects.
 
-\includegraphics[width=\textwidth]{cfd.png}
-\includegraphics[width=\textwidth]{cfd2.png}
-\newpage
+## Event-Driven Programming
+
+The main body of the program functions like an event loop, though it does not exist inside a loop.  **Event-Driven Programming** is <span style="color:blue;">a style of programming where events dictate the flow of execution</span>.  The program loads, then waits for the user to input **Events**, <span style="color:blue;">objects that represent user interaction with the GUI component</span>.  As events occur, the program runs code to respond.  The flow of what is executed is determined by event order.
+
+In contrast, application or algorithm-driven control expects input in well-defined places.  Algorithm-driven control is typical for large non-GUI applications.
+
+A **Listener** is <span style="color:blue;">an object that waits for events and handles them</span>.  To handle an event, attach a listener to a component.  The listener will be notified when the event (e.g., button click) occurs.
+
+There are a few different kinds of GUI events:
+
+- **Mouse**: <span style="color:blue;">move, drag, click, button press, and button release</span>
+- **Keyboard**: <span style="color:blue;">key press and release, sometimes with modifiers like shift, control, or alt</span>
+- **Touchscreen**: <span style="color:blue;">finger tap and drag</span>
+- Joystick, drawing tablet, other device inputs
+- **Window** <span style="color:blue;">resize, minimize, restore, or close</span>
+- Network activity or file I/O (start, done, error)
+- Timer interrupt (including animations)
+
+Every event object contains information about events it can handle.  That information includes the triggering GUI component and other information depending on the event, like ActionEvent (text string from a button) or MouseEvent (mouse coordinates).  An **Action Event** is <span style="color:blue;">an action that has occurred on a GUI component</span>.  Action events are the most common event type in Swing.  Some examples are button clicks and check box-checking or unchecking.  These are all represented by the class `ActionEvent`.  They are handled by objects that implement `interface ActionListener`.
+
+The appropriate method specified in the interface is called when an event occurs.  For example, when an action event occurs, `actionPerformed` gets called on the attached or registered Listeners.  An event object is then passed as a parameter to the event listener method - for instance, `actionPerformed(ActionEvent e)`.
+
+`JButton(String text)` creates a new button with the given string as text.  `String getText()` and `void setText(String text)` get and set a button’s text, respectively.  See this in action below:
+
+    package gui4;    
+    import java.awt.*; // basic AWT classes    
+    import java.awt.event.*; // event classes    
+    import javax.swing.*; // Swing classes    
+     
+    /* Straightforward demo of Swing event handling.     
+    * Create a window with a single button that prints a message when clicked.    
+    * Version 1 with named inner class to handle button events.    
+    */   
+    public class ButtonDemo1 {    
+        // inner class to handle button events    
+        private static class MyButtonListener implements ActionListener {    
+    final String id;    
+    private int nEvents = 0;    
+
+    /** Create a new MyButtonListener */    
+    public MyButtonListener(String id) {    
+    this.id = id;    
+    }    
+
+    /* Respond to events generated by the button by printing the    
+    * command and number of times the event has been triggered.    
+    * @param e the event created by the button when it was clicked.    
+    */    
+    @Override    
+    public void actionPerformed(ActionEvent e) {    
+    nEvents++;    
+    System.out.println(id + " " + e.getActionCommand() + " " + nEvents);    
+    }    
+        }    
+        public static void main(String[] args) {    
+    // Create a new window and set it to exit from the application when closed.    
+    JFrame frame = new JFrame("Button Demo");    
+    frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);    
+    // Create a new button with the label "Hit me" and the string "OUCH!" to be    
+    // returned as part of each action event.    
+    JButton button = new JButton("Hit me");    
+    button.setActionCommand("OUCH!");    
+    button.addActionListener(new MyButtonListener("Listener1"));    
+    // Experiment: add two ButtonListeners    
+    // button.addActionListener(new MyButtonListener("Listener2"));    
+    // button.addActionListener(new MyButtonListener("Listener3"));    
+    // Experiment: add a single ButtonListener twice    
+    // MyButtonListener mbl = new MyButtonListener("Listener4");    
+    // button.addActionListener(mbl);    
+    // button.addActionListener(mbl);    
+    // Functional version    
+    // button.addActionListener(evt -> System.out.println("Listener5 OUCH!"));    
+    // Add a button to the window and make it visible.    
+    frame.add(button);    
+    frame.pack();    
+    frame.setVisible(true);    
+        }    
+    }
+
+A single button listener can handle several buttons, so how does one tell which is which?  An `ActionEvent` has a `getActionCommand` method that returns an "action command" string, in this case, the button name.  Button names, by default, are "Default," so it is better to set button names to specific strings, which remain the same even if the UI and other button names change.
+
+## Serialization
+
+`HashSet` is a serializable class.  To **Serialize** a class, <span style="color:blue;">convert an object's state to a byte stream that can be reverted to a copy of the original object</span>.  Serializing requires a version number of type `long`.  After a serialized object has been written into a file, it can be read from the file and deserialized.  Java issues a warning if `Serializable` is extended without a version number.  Luckily, Eclipse generates one automatically.  See this example of serialization:
+
+    public class Employee implements java.io.Serializable {
+        public String name;
+        public String address;
+        public transient int SSN;
+        public int number;
+        public void mailCheck() {
+            System.out.println("Mailing a check to " + name + " " + address);
+        }
+    }
+
+<span style="color:blue;">Fields not meant to be serialized</span> are marked as **Transient**.
+
+In general, the structure of a GUI Application can be summarized in two steps:
+
+1. Place components in a **JPanel**, a <span style="color:blue;">Java container that stores groups of components</span>
+2. Add the new container to a **JFrame**, the <span style="color:blue;">main window in Java</span>.
+
+The container stores components and governs their positions, sizes, and resizing behavior.  Once components are added to their container, `pack()` calculates all component sizes and calls the layout manager to set component locations.  Remember `pack()`; omitting it can lead to (for lack of a better term) funky layouts.  Use `SimpleLayoutMain.java` when in doubt.
+
+## Java GUI Libraries
+
+**Swing** is <span style="color:blue;">the leading Java GUI library</span>.  There are many advantages to using Swing:
+
+- It paints GUI components itself, pixel-by-pixel
+- It does not delegate to the OS window system, though it emulates the look and feel of several platforms
+- Swing is platform-independent - cross-platform compatibility is  key to covering all operating system and browser options available
+- It has an expanded set of widgets and features made possible by object-oriented design
+
+Swing component objects all have a **Preferred Size** that they would like to be: <span style="color:blue;">just large enough to fit their contents</span>.  Some other layout managers, such as `FlowLayout`, also choose to size the components inside them to the preferred size.  Others, such as `BorderLayout` or `GridLayout`, disregard the preferred size convention and use some other scheme to size components.
+
+**Abstract Windowing Toolkit (AWT)** is Sun’s initial GUI library.  It <span style="color:blue;">maps Java code to each OS’s windowing system</span>.  Despite this feature, AWT is otherwise clunky to use and offers a limited set of widgets.
+
+**JavaFX** is the most recent GUI library.  It was <span style="color:blue;">built to replace Swing eventually and uses a declarative framework</span>.
+
+## Nested Classes
+
+A **Nested Class** is <span style="color:blue;">a class defined in another class</span>.  **Inner Objects**, or <span style="color:blue;">objects within nested classes</span>, can access the fields and methods of their outer method.  Event listeners are often defined as inner classes inside a GUI.  The syntax is as follows:
+
+    public class OuterClass {
+        ...
+        // Instance nested class (inner class)
+        // A different class for each instance of Outer private class InnerClass { ... }
+        // Static nested class
+        // One class, shared by all instances of Outer
+        static private class NestedClass { ... }
+    }
+
+If a nested class is private, only the outer class can see it and create objects of the nested type.  In that case, each inner object is associated with the outer object that created it so that the inner object can access or modify the outer object.  The inner class can then refer to the outer object as `OuterClass.this`.
+
+An **Anonymous Inner Class** is a <span style="color:blue;">use-once class defined directly in the new expression</span>.  In an anonymous inner class, specify the base class to be extended or interface to be implemented, and override or implement needed methods.  If the class gets complicated, the anonymous clause can be dropped.  The syntax is as follows:
+
+        button.addActionListner(new ActionListner() {
+            public void actionPerformed(ActionEvent e) {
+                doSomething()
+                implementation of the method for anonymous class
+            }
+        }
+    )
+
+## Program Thread and UI Thread
+
+Programs and their UI run in concurrent threads.  All UI actions happen in the UI thread, including callbacks like `paintComponent` and `actionPerformed`.  After event handling, `repaint` can be called if `paintComponent` needs to run, but do not try to draw anything from inside the event handler.  The series of actions is as follows:
+
+- `Repaint()` returns immediately
+- `Painting` occurs when the window manager is ready
+- `paintComponent()` is called
+
+![](images\programwindow.png)
+
+In the UI Thread, event handlers should only do a little work; if the event handler gets busy, the interface will appear to freeze up.  On the other hand, if there is a lot to do, the event handler should handle some events that the program thread will notice, and then do the heavy work behind the scenes.
+
+## Components, Events, Listeners, and the Observer Pattern
+
+The **Model View Controller (MVC)** design pattern, <span style="color:blue;">another name for the observer design pattern</span> comes up a lot.  One possible design for a GUI using MVC could be:
+
+- A **Model** or <span style="color:blue;">observable class</span>, such as `Sale`
+    - When `Sale` changes, it notifies its observers
+    - The **Component**, is <span style="color:blue;">an observer class that extends JFrame</span>.  A component can also be initialized by implementing some Listener interface.
+
+![](images\cfd.png)
+![](images\cfd2.png)
