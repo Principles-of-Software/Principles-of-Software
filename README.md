@@ -21,7 +21,7 @@ must be more readily available and digestible than they currently are as of this
 
 ## Acknowledgements
 
-This repository is built atop the [RCOS Handbook]{https://handbook.rcos.io/#/}, the document for which another RPI class, Rensselaer Center for Open Source (RCOS), is based off of.  That document is maintained and updated by Faculty and the student coordinators who make it all happen.
+This repository is built atop the [RCOS Handbook](https://handbook.rcos.io/#/), the document for which another RPI class, Rensselaer Center for Open Source (RCOS), is based off of.  That document is maintained and updated by Faculty and the student coordinators who make it all happen.
 
 This textbook would also not be possible without:
 
