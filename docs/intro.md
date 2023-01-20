@@ -37,7 +37,7 @@ The list goes on and on, but hopefully this is enough to convince even the most 
 
 What does code require to be <span style="color:blue;">maintainable</span>?  The code base should be <span style="color:blue;">well-organized, consistent, well-documented, understandable</span> (this is up for interpretation, but can also very importantly refer to variable naming conventions), and <span style="color:blue;">follow the Open-Closed Principle</span>:
 
-> Be open for modification, but closed for extension.
+> Be open for extension, but closed for modification.
 
 For example, suppose we have an editor that manipulates two-dimensional shapes.  We have created Square and Circle objects, and have a program that moves these shapes around the user's screen.  Adding a Triangle (<span style="color:blue;">open for extension</span>) should be easy without any changes to the existing code that manipulates shapes (<span style="color:blue;">closed for modification</span>).  Modularity depends on the open-closed principle; good programmers do well to remember it.
 
