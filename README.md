@@ -51,4 +51,4 @@ Check out [CONTRIBUTING.md](./CONTRIBUTING.md) for the suggested ways to preview
 
 ## Deploying
 
-The Textbook will be automatically deployed using GitHub pages, and has `textbook.psoft.io` set as the custom domain in the repostiory settings. This means that the Handbook is automatically updated when the master branch is updated and can be located at <https://textbook.psoft.io>!
+The Textbook will be automatically deployed using GitHub pages, and has `textbook.psoft.io` set as the custom domain in the repostiory settings. This means that the Handbook is automatically updated when the master branch is updated and can be located at <https://principles-of-software.github.io/Principles-of-Software/#/>!
