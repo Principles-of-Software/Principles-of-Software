@@ -50,11 +50,11 @@ Reasoning about ADTs uses induction.  When reasoning about representation invari
 
 The steps to successful induction are as follows:
 
-1. **Initial Step**: <span style="color:blue;">Prove the proposition is true for n = 0</span>.
-2. **Inductive Step**: <span style="color:blue;">Prove that if the proposition is true for n = k, then it must also be true for n = k + 1</span>.  This step is complex, and breaking it up into several stages helps.
-    - **Inductive Hypothesis**: <span style="color:blue;">Assume what the proposition asserts for the case n = k</span>.
-    - **Step 2**: <span style="color:blue;">Write down what the proposition asserts for the case n = k + 1.  This is what the induction proves</span>.
-    - **Step 3**: <span style="color:blue;">Prove the statement in Stage 2 using the assumption in Stage 1</span>.  The technique varies from problem to problem, depending on the mathematical content.
+1. **Initial Step:** <span style="color:blue;">Prove the proposition is true for n = 0</span>.
+2. **Inductive Step:** <span style="color:blue;">Prove that if the proposition is true for n = k, then it must also be true for n = k + 1</span>.  This step is complex, and breaking it up into several stages helps.
+    - **Inductive Hypothesis:** <span style="color:blue;">Assume what the proposition asserts for the case n = k</span>.
+    - **Step 2:** <span style="color:blue;">Write down what the proposition asserts for the case n = k + 1.  This is what the induction proves</span>.
+    - **Step 3:** <span style="color:blue;">Prove the statement in Stage 2 using the assumption in Stage 1</span>.  The technique varies from problem to problem, depending on the mathematical content.
 
 Use ingenuity, common sense, and knowledge of mathematics here.  Additionally, RPI's Foundations of Computer Science class and associated text have suitable methods for solving proofs with induction.
 
@@ -70,8 +70,8 @@ To illustrate this concept, see the example below:
         z += 1;
     }
 
-1. *Initial Step*: In this loop, the decrementing variable is `i`, and the variables of interest are `x` and `z`.  Thus, our loop invariant (LI) must incorporate these variables.  The precondition values simplify to `i == x`; coupled with `z == 0`, we get `i + z = x` as our LI.  We know it holds before the loop code executes by substituting the variables in for their values: `(10) + (0) = (10)`.
-2. *Inductive Step*: Assuming `i + z == x` holds after iteration `k`, we show that `i + z == x` holds after iteration `k + 1`.  
+1. *Initial Step:* In this loop, the decrementing variable is `i`, and the variables of interest are `x` and `z`.  Thus, our loop invariant (LI) must incorporate these variables.  The precondition values simplify to `i == x`; coupled with `z == 0`, we get `i + z = x` as our LI.  We know it holds before the loop code executes by substituting the variables in for their values: `(10) + (0) = (10)`.
+2. *Inductive Step:* Assuming `i + z == x` holds after iteration `k`, we show that `i + z == x` holds after iteration `k + 1`.  
     - Assume that `(i - k) + (z + k) = x`.  If that is indeed true, then `(i - k - 1) + (z + k + 1) = x` must also be true, because: ``(i - k - 1) + (z + k + 1) = (i - k) + (z + k) - 1 + 1 = (i - k) + (z + k) = x``
     - If the loop terminates, we know `i <= 0`.  We have `z == x`, which is the postcondition.
     - We know if the loop terminates because the precondition `x >= 0` guarantees that `i >= 0` before the loop.  At every iteration, `i` decreases by `1`.  Thus, it eventually reaches `0`.
