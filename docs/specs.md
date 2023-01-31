@@ -118,7 +118,7 @@ Specifications can be strengthened by weakening their preconditions and strength
 
 A stronger specification is easier to use - the client has fewer preconditions to meet, and the client gets more guarantees in postconditions.  However, they are also harder to implement.  On the other hand, a weaker specification is easier to implement because it has a more extensive set of preconditions, relieves implementation from the burden of catching errors, and is easier to guarantee less to the client in the postcondition.  Unfortunately, with all of this simplification, weaker specs are often more challenging to use due to their lack of rigor.
 
-Specification `B` consists of precondition `P_B` and postcondition `Q_B`.  Specification `C` consists of precondition `P_C` and postcondition `Q_C`.  B is stronger than C if `P_B -> P_C`; `P_B` is weaker than `P_B`, so it is a stronger spec.  `Q_B` is stronger than `Q_C` if `Q_B -> Q_C`; `Q_B` is stronger than `Q_C`, so it's a stronger spec.  `P_C -> P_B \&\& Q_B -> Q_C` is a sufficient condition, but not necessary.
+Specification `B` consists of precondition `P_B` and postcondition `Q_B`.  Specification `C` consists of precondition `P_C` and postcondition `Q_C`.  B is stronger than C if `P_B -> P_C`; `P_C` is weaker than `P_B`, so `P_B -> P_C` is a stronger spec.  Similarly, `Q_B` is stronger than `Q_C` if `Q_B -> Q_C`, so `Q_B -> Q_C` is a stronger spec.  `P_C -> P_B \&\& Q_B -> Q_C` is a sufficient condition, but not necessary.
 
 `P_C -> P_B && Q_B == Q_C` is valid.
 `Q_B -> Q_C && P_B == P_C` is valid.
@@ -128,7 +128,7 @@ Sometimes, we use a method where another is expected with subclasses.  We must o
 
 ## Satisfaction of Specifications
 
-`P` is an implementation, and `Q` is a specification.  `P` satisfies `Q` if every `P` behavior is permitted by `Q`, and no `P` behavior violates `Q`.  The statement "`P` is correct" is meaningless but often used; if `P` does not satisfy `Q`, either or both could be wrong.  When `P` does not satisfy `Q`, it is usually better to change the program rather than the spec.  If the spec is too complex, modify the spec.
+`P` is an implementation, and `Q` is a specification.  `P` satisfies `Q` if every `P` behavior is permitted by `Q`.  The statement "`P` is correct" is meaningless but often used; if `P` does not satisfy `Q`, either or both could be wrong.  When `P` does not satisfy `Q`, it is usually better to change the program rather than the spec.  If the spec is too complex, modify the spec.
 
 ## Converting PSoft Specs into Logical Formulas
 
