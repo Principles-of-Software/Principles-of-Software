@@ -12,6 +12,7 @@ Here are some resources to learn more about the halting problem:
 - [Khan Academy](https://www.khanacademy.org/computing/computer-science/theory-of-computation/undecidability-and-halting-problem/a/the-halting-problem)
 - [Brilliant](https://brilliant.org/wiki/halting-problem/)
 - [Coursera](https://www.coursera.org/lecture/automata-theory/the-halting-problem-YbYOc)
+- [CProgramming.com](https://www.cprogramming.com/tutorial/computersciencetheory/halting.html)
 
 ## Rice's Theorem
 
