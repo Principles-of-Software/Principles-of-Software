@@ -148,10 +148,8 @@ It is difficult to compare specifications; comparison by hand can be easier, but
 
 Comparing by hand uses the `requires` clause:
 
-    Requires: stronger spec has fewer conditions requires;
-        they require less
-    Modifies / Effects: stronger spec modifies fewer objects.  
-        The stronger spec guarantees more objects stay unmodified!
-    Returns and Throws Clauses: the stronger spec guarantees more in
-        returns and throws clauses.  They are harder to implement
-        but easy to use by the client.
+- Requires: stronger specifications have fewer conditions in the requires clause; stronger specs require less.
+- Modifies / Effects: a stronger specification modifies fewer objects and guarantees that more objects stay unmodified.
+- Returns and Throws Clauses: a stronger specification guarantees more in the returns and throws clauses.  
+
+Stronger specifications are harder to implement but easy to use by the client.
