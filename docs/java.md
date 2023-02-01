@@ -49,6 +49,13 @@ In Java, access control modifiers are different; protected is slightly different
     | protected       |   Y   |    Y    |     Y    |   N   |
     | no modifier     |   Y   |    Y    |     N    |   N   |
     | private         |   Y   |    N    |     N    |   N   |
+    
+|       | Class | Package | Subclass | World                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
+| ----- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| Public | Y | Y | Y | Y         |
+| Protected | Y | Y | Y | N                                                                                                                                                                                         |
+| No Modifier | Y | Y | N | N                                                                                                                                                                              |
+| Private | Y | N | N | N                                                                                                                                                                                                                                                                                                                                                    |
 
 A protected object is visible to its parent class, the other classes in its package, and subclasses, but not to the outside world.
 
