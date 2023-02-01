@@ -27,7 +27,7 @@ A variable is a reference to an object with a value; every variable is an l-valu
 To clarify the difference, here is how to create a string with a value model language:
 
     int x = 7; // value model
-    char c = "Ahhh";
+    char * c = "Ahhh";
 
 Furthermore, here is how to create a string with a reference model language:
 
@@ -169,7 +169,7 @@ Defensive programming should be done statically - before execution.  It works in
 
 It is also essential to check representation invariants dynamically via assertions.  These are tests checked at runtime.  Write these similarly to code - and they are not to be confused with JUnit methods such as `assertEquals`.
 
-By default, Java runs with assertions disabled.  Java-ea runs with assertions enabled.  Always enable assertions during development, and disable them in production.  Do not use assertions when the behavior of a code block is apparent, or when there could be unintended consequences for doing so.
+By default, Java runs with assertions disabled.  `Java -ea` runs with assertions enabled.  Always enable assertions during development, and disable them in production.  Do not use assertions when the behavior of a code block is apparent, or when there could be unintended consequences for doing so.
 
 Assertions can fail from:
 
