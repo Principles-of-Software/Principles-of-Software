@@ -44,8 +44,8 @@ In Java, there are two ways to denote equality: `==` and `.equals`.  **==** is u
 
 In Java, access control modifiers are different; protected is slightly different in C++.  Java also has built-in garbage collection, whereas C++ does not.  In C++, the programmer is responsible for memory management, whereas in Java, programmers do not need to explicitly free memory.  Below is a table with access modifiers and what they do to program visibility:
 
-    |     | Class | Package | Subclass | World |
-    | --- | --- | --- | --- | --- |
+    |                 | Class | Package | Subclass | World |
+    | --------------- | ----- | ------- | -------- | ----- |
     | public          |   Y   |    Y    |     Y    |   Y   |
     | protected       |   Y   |    Y    |     Y    |   N   |
     | no modifier     |   Y   |    Y    |     N    |   N   |
