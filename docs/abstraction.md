@@ -1,28 +1,10 @@
-# Abstraction
-
-**Abstraction** is <span style="color:blue;">the hiding of unnecessary low-level details</span>.  Thus, abstractions that include unimportant information are useless.  They are also unhelpful when they fail to include necessary information, which defeats their purpose.  The point of having abstractions instead of reading code is to minimize the burden of remembering all that code. 
-
-**Cognitive Load** is <span style="color:blue;">the amount of knowledge a programmer must have to work on the code base</span>.  Abstractions are meant to make life easier - to reduce cognitive load.  **Information Hiding** is <span style="color:blue;">a design principle that hides the parts of a program likely to change from the client</span>.  An **Abstract Data Type (ADT)**, then, uses information hiding to <span style="color:blue;">encapsulate an object and its operations</span> for faster, easier development.
-
-## Abstract Data Types (ADTs)
-
-Luckily, despite how scary they sound, ADTs are all around us and easy to grasp: they are anything that represents something else in data.  So, a `Set` in Java might represent a real-life mathematical set.  An even more concrete example might be a book.  Books come in all shapes, sizes, colors, and purposes, so `Book` is an ADT.   However, `The Principles of Software Textbook` is a very concrete implementation of that abstract concept.
-
-In addition to encapsulating an object and its operations, ADTs can be a specification mechanism, a way of thinking about programs, and a helpful design tool.  Organizing and manipulating data is pervasive in code, though inventing and describing algorithms is not.
-
-Thus, we should consider data representation when designing large software systems.  Before implementation, consider what the data represents:  will necessary operations be efficient without compromising understandability?  ADTs solve this problem in well-written programs by shielding users from implementation -- clients do not directly depend on the program's internals.
-
-## Control Abstraction (Procedural Abstraction)
-
-**Control Abstraction**, or **Procedural Abstraction**, is <span style="color:blue;">the procedure for implementing code according to specifications, where method names, method signatures, and specifications are exposed to the client, but implementation is hidden</span>.  One part of this is a **Method Signature**, sometimes referred to simply as a **Signature**, which <span style="color:blue;">provides a method's name, parameter types, and return type</span>.  With these pieces, ADTs supply the abstraction barrier between implementation and representation.
-
 ## Data Abstraction
 
 **Data Abstraction** is <span style="color:blue;">where the data representation of a class is hidden from the client</span>.  For example: how are strings implemented in Java?  Are they fixed arrays of characters?  Linked lists?  Data abstraction abstracts the use of information away from its representation.  For example, a string is an abstraction for an array of characters.
 
 ## ADT Methods
 
-We can group the methods of an ADT into creators, observers, producers, and mutators, which all relate to an object $O$ of type $T$.  **Creators** <span style="color:blue;">create a new object of type $T$</span>; constructors are creators.  **Observers** <span style="color:blue;">return information about $O$</span>; getter methods are observers.  **Producers** <span style="color:blue;">return a new object of type $T$ by performing operations on the given object $O$</span>.  **Mutators** <span style="color:blue;">change the object $O$</span>; setter methods are mutators.
+We can group the methods of an ADT into creators, observers, producers, and mutators, which all relate to an object `O` of type `T`.  **Creators** <span style="color:blue;">create a new object of type `T`</span>; constructors are creators.  **Observers** <span style="color:blue;">return information about `O`</span>; getter methods are observers.  **Producers** <span style="color:blue;">return a new object of type `T` by performing operations on the given object `O`</span>.  **Mutators** <span style="color:blue;">change the object `O`</span>; setter methods are mutators.
 
 ADTs can be immutable or mutable.  **Immutable Objects** <span style="color:blue;">cannot be changed</span>, while **Mutable Objects** <span style="color:blue;">can be changed</span>.  No mutators exist in an immutable object's ADT, and producers are rare when specifying the ADT for a mutable object.
 
