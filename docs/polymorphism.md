@@ -118,8 +118,6 @@ Wildcards appear at the instantiations of generic objects.  There is also `<?  s
 
 The above code, as is, will not compile.  `fruits.add(new Fruit());` won’t compile either.
 
-![](images\wild.png)
-
 The type declaration `List<?  extends Integer>` means that every `List< type>` such that type extends `Integer`, is a subtype of `List<?  extends Integer>`, and so can be used where `List<? extends Integer>` is expected.  Covariant subtyping must be restricted to immutable lists.  
 
 Use `<? extends T>` when getting values from a producer, and use `<? super T>` when adding values into a consumer.  For example, `<T> void copy(List<? super T> DST, List<? extends T> src)`.   Use PECS: Producer Extends Consumer Super.  Use the `?  extends` wildcard to retrieve objects from data structures.  Use the `?  super` wildcard to put objects in a data structure.  Wildcards are not needed when both reading and writing.
@@ -144,3 +142,41 @@ Do not use raw types because Eclipse complains.  Do not use private final Collec
 Use generic types rather than fixed types.  This makes code more flexible, and making classes generic without affecting client code is straightforward.  Generic methods are helpful in the same way.
 
 Use bounded wildcards to enhance flexibility.
+
+## Exercises
+
+Evaluate the following exercises given this piece of code:
+```
+Object o;
+Number n;
+Integer i;
+PositiveInteger P; // extends Integer
+
+List<? extends Integer> lei;
+```
+
+### 1
+
+What of the following operations are legal?
+```
+lei = new ArrayList<Object>();
+lei = new ArrayList<Number>();
+lei = new ArrayList<Integer>();
+lei = new ArrayList<PositiveInteger>();
+lei = new ArrayList<NegativeInteger>();
+```
+
+### 2
+
+What of the following operations are legal?
+```
+lei.add(o);
+lei.add(n);
+lei.add(i);
+lei.add(p);
+lei.add(null);
+o = lei.get(0);
+n = lei.get(0);
+i = lei.get(0);
+p = lei.get(0);
+```
