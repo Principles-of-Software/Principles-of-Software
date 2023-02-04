@@ -44,12 +44,12 @@ In Java, there are two ways to denote equality: `==` and `.equals`.  **==** is u
 
 In Java, access control modifiers are different; protected is slightly different in C++.  Java also has built-in garbage collection, whereas C++ does not.  In C++, the programmer is responsible for memory management, whereas in Java, programmers do not need to explicitly free memory.  Below is a table with access modifiers and what they do to program visibility:
 
-    |                 | Class | Package | Subclass | World |
-    | --------------- | ----- | ------- | -------- | ----- |
-    | public          |   Y   |    Y    |     Y    |   Y   |
-    | protected       |   Y   |    Y    |     Y    |   N   |
-    | no modifier     |   Y   |    Y    |     N    |   N   |
-    | private         |   Y   |    N    |     N    |   N   |
+|                 | Class | Package | Subclass | World |
+| --------------- | ----- | ------- | -------- | ----- |
+| public          |   Y   |    Y    |     Y    |   Y   |
+| protected       |   Y   |    Y    |     Y    |   N   |
+| no modifier     |   Y   |    Y    |     N    |   N   |
+| private         |   Y   |    N    |     N    |   N   |
 
 A protected object is visible to its parent class, the other classes in its package, and subclasses, but not to the outside world.
 
@@ -147,24 +147,24 @@ Often, abstract values are not clean mathematical objects.  The concepts of cust
 
 Java Classes:
 
-    - Make operations of the abstract data type public methods
-    - Make other operations private
-    - Clients can only access the ADT operations
+- Make operations of the abstract data type public methods
+- Make other operations private
+- Clients can only access the ADT operations
 
 Java Interfaces:
 
-    - Clients only see the abstract data type operations, nothing else
-    - There can be multiple implementations with no code in common
-    - Cannot include creators or fields
+- Clients only see the abstract data type operations, nothing else
+- There can be multiple implementations with no code in common
+- Cannot include creators or fields
 
 Both classes and interfaces rely upon careful specifications.  However, we prefer interface types over specific classes because they force programmers to decouple implementation from abstract data types.
 
 When defensive programming, programmers must check what they are doing.  Specifically, they must check:
 
-    - Precondition
-    - Postcondition
-    - Representation Invariant
-    - Loop Invariants
+- Precondition
+- Postcondition
+- Representation Invariant
+- Loop Invariants
 
 Defensive programming should be done statically - before execution.  It works in more straightforward cases but can be difficult in general.  Thus, adequate defensive programming motivates us to simplify and decompose our code!
 
@@ -174,9 +174,9 @@ By default, Java runs with assertions disabled.  `Java -ea` runs with assertions
 
 Assertions can fail from:
 
-    - Precondition violations
-    - Errors in code from representation exposures, exceptions, bugs, etc.
-    - Unpredictable external problems such as running out of memory, missing files, memory corruption, connection failure, etc.
+- Precondition violations
+- Errors in code from representation exposures, exceptions, bugs, etc.
+- Unpredictable external problems such as running out of memory, missing files, memory corruption, connection failure, etc.
 
 Good Java developers want to fail friendly and early to prevent harm in their programs.  Their first goal is to add clarity to and prevent harm in the code base.
 
@@ -186,8 +186,8 @@ Return codes can cause problems when ignored.  Exceptions are also typed, as are
 
 Generally, throw an exception when something should not happen.  Return a special value when something unusual but expected can happen, and the client code can react to it.  There are two distinct uses of exceptions:
 
-    - External Failures (device failures) are unexpected and usually unrecoverable.  If a condition is unchecked, the exception propagates up the call stack.
-    - Special results are expected and can always be checked and handled locally.  Therefore, take special action and continue computing.
+- External Failures (device failures) are unexpected and usually unrecoverable.  If a condition is unchecked, the exception propagates up the call stack.
+- Special results are expected and can always be checked and handled locally.  Therefore, take special action and continue computing.
 
 Checked exceptions and unchecked exceptions should both be caught.  Calls throwing checked exceptions are enclosed in a `try{}` block in a level above in the caller of the method.  In that case, the current method must declare that it throws the exceptions so that the callers can make appropriate arrangements to handle the exception.
 
