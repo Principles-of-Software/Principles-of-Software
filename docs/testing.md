@@ -98,6 +98,12 @@ A **Def-Use Pair** consists of <span style="color:blue;">a definition and a vari
 
 ![](images\du.png)
 
+For instance, in the above diagram, 1, 2, 3, 5, 6 is a definition-clear path from nodes 1 to 6, because `x` is not re-assigned between nodes 1 and 6.  On the other hand, 1, 2, 4, 5, 6 is *not* a definition-clear path from 1 to 6, because the value of `x` is reassigned at node 4.  Therefore, (1, 6) is a DU pair because 1, 2, 3, 5, 6 is a definition-clear path.
+
 We want to test all DU pairs, all DU paths, and all definitions.  Sometimes, there are impossible DU paths, so developers make up for the gaps in representation.  Detecting infeasibility can be difficult; in practice, the goal is to get reasonable testing coverage.  Aliasing, infeasible paths, and worst cases can hinder testing, but pragmatism is imperative here.
 
 ![](images\infeasible.png)
+
+For example, in the above diagram, suppose `cond` does not change between nodes 1 and 5.  Because the state doesn't change between 1 and 5, (3, 6) is *not* a feasible DU path.
+
+Unfortunately, infeasible paths are very hard and impossible to test for, so programmers need to keep a keen eye out for unchanging states in their code.
