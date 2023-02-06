@@ -2567,8 +2567,6 @@ The below UML diagram illustrates the relationship between modules and their abs
 ## Interning Pattern
 The interning pattern is not a Gang of Four design pattern.  With the interning pattern, existing objects with the same value are copied, instead of creating new, identical objects.  Unlike the singleton pattern, multiple instances of the same object exist, but objects with the same value are reused where needed.  Additionally, interned objects can be compared with == instead of equals because they are the same object.  Interning may improve program speed!
 
-![](images/interning.png)
-
 Interning applies to immutable objects only.  Thus, Java strings can be interned.  Here is an example of the Interning Pattern:
 
     HashMap<String,String> names;
