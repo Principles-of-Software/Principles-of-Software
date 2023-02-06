@@ -29,23 +29,23 @@ There are standard specification conventions that make writing readable code eas
 
 **JavaDoc** specifications are <span style="color:blue;">simple text descriptions of the method's behavior that reside in a method's type signature</span>:
 
-    \*
-    * parameters: text description of what gets passed
-    * returns: text description of what gets returned
-    * throws: list of possible exceptions
-    *\
+    /**
+    ** parameters: text description of what gets passed
+    ** returns: text description of what gets returned
+    ** throws: list of possible exceptions
+    **/
     public String methodName() { ... }
 
 **Principles of Software (PSoft)** specification conventions are also included in the code as comments.  <span style="color:blue;">The precondition is the `requires` clause, and the postcondition is comprised of all other clauses</span>:
 
-    \*
-    * requires: clause spells out constraints on client code
-    * modifies: lists objects that may be modified by the method.  
-    *   Any object not listed under this clause is guaranteed untouched.
-    * effects: describes the final state of modified objects
-    * throws: lists possible exceptions
-    * returns: describes the return value of the method
-    *\
+    /**
+    ** requires: clause spells out constraints on client code
+    ** modifies: lists objects that may be modified by the method.  
+    ** Any object not listed under this clause is guaranteed untouched.
+    ** effects: describes the final state of modified objects
+    ** throws: lists possible exceptions
+    ** returns: describes the return value of the method
+    **/
     public String methodName() { ... }
 
 A few additional comments describing the function help increase readability for the programmer.
