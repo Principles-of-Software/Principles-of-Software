@@ -273,4 +273,3 @@ The **Model View Controller (MVC)** design pattern, <span style="color:blue;">an
     - The **Component**, is <span style="color:blue;">an observer class that extends JFrame</span>.  A component can also be initialized by implementing some Listener interface.
 
 ![](images\cfd.png)
-![](images\cfd2.png)
