@@ -31,6 +31,8 @@ Dr. Carlos Varela,
 
 Dr. Michael Ernst (of University of Washington),
 
+Dr. David Notkin (University of Washington),
+
 Professor Thompson,
 
 All of Principles of Software's TAs and mentors for their contributions of student grading and course advice,
