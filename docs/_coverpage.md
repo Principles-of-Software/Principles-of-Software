@@ -1,4 +1,4 @@
-<img src="images/black_tree.gif" width="400px" alt="PSOFT - Principles of Software">
+<img src="images/color_tree.gif" width="400px" alt="PSOFT - Principles of Software">
 
 # Principles of Software <small>3.5</small>
 
