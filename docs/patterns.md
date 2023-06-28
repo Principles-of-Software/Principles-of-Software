@@ -275,7 +275,7 @@ Code for all three classes is featured below, starting with `SoupBuffetBuilder`:
     }
 
 
-We have also included the `Soup.java` and `SoupBuffer.java` helper class to supplement the classes we already have:
+We have also included the `Soup.java` and `SoupBuffet.java` helper class to supplement the classes we already have:
 
 
     import java.util.ArrayList;
