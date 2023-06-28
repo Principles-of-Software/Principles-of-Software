@@ -19,29 +19,35 @@ must be more readily available and digestible than they currently are as of this
 
 ## Acknowledgements
 
-The design and spirit of this repository is based on the [RCOS Handbook](https://handbook.rcos.io/#/), the document for which another RPI class, Rensselaer Center for Open Source (RCOS), is based off of.  That document is maintained and updated by CS Department Faculty and the student coordinators who make it all happen.
+The spirit of this textbook is based on the RCOS Handbook, the document for which another RPI class, Rensselaer Center for Open Source (RCOS), is based off of.  Both documents are maintained and updated by CS Department Faculty as well as students, who have graciously edited this textbook via its open-source counterpart.
 
-This textbook would also not be possible without:
+The content of this textbook is not original work; it is a compilation of a series of papers, slideshows, lectures, and book excerpts from leaders in the field of computer science.  As such, the credit for the content in this book goes entirely to:
 
-Dr. Ana Milanova,
+Dr. Konstantin Kuzmin of Rensselaer Polytechnic Institute,
 
-Dr. David Goldschmidt,
+Dr. Ana Milanova of Rensselaer Polytechnic Institute,
 
-Dr. Carlos Varela,
+Dr. David Goldschmidt of Rensselaer Polytechnic Institute,
 
-Dr. Michael Ernst (of University of Washington),
+Dr. Carlos Varela of Rensselaer Polytechnic Institute,
 
-Dr. David Notkin (University of Washington),
+Dr. Michael Ernst of the University of Washington,
 
-Professor Thompson,
+Dr. David Notkin of the University of Washington,
 
-All of Principles of Software's TAs and mentors for their contributions of student grading and course advice,
+and Professor Thompson of Rensselaer Polytechnic Institute.
+
+All resources, sources, quotes, and some extra ideas are dully cited in the Appendix.
+
+This book would also not be possible without:
+
+All of the Principles of Software's TAs and mentors for their contributions to student grading and course advice,
 
 Dr. Barb Cutler and the Submitty team for making grading Principles of Software possible,
 
-and Dr. Konstantin Kuzmin, who oversaw, edited, and guided the author in the creation of this publication.
+and Dr. Konstantin Kuzmin, who created the slide deck on which this book is largely based, and who oversaw the author in the creation of this publication.
 
-This book should not be considered an original work - it is a collage of expertise woven together by an over-ambitious undergraduate at Rensselaer Polytechnic Institute.  All resources, sources, quotes, and some extra ideas are dully cited in the Appendix.  If you should desire to learn more about any idea in this book, consult the Appendix or contact [Alice Bibaud](alice.bibaud@gmail.com). 
+If you should desire to learn more about any idea in this book, consult the Appendix or contact Alice Bibaud at alicebibaud@proton.me.
 
 ## Textbook
 
