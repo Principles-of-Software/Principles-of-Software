@@ -1,4 +1,4 @@
-- [Forward](README.md)
+- [Foreward](README.md)
 
 - [Introduction](intro.md)
 
